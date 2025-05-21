@@ -1,16 +1,11 @@
 import os
 from pathlib import Path
-import environ
 
-env = environ.Env(DEBUG=(bool, False))
 BASE_DIR = Path(__file__).resolve().parent.parent
-ENV_FILE = BASE_DIR.parent / '.env'
-if ENV_FILE.exists():
-    environ.Env.read_env(ENV_FILE)
 
-SECRET_KEY = env('SECRET_KEY', default='django-insecure-change-me')
-DEBUG = env.bool('DEBUG', default=True)
-ALLOWED_HOSTS = ['*']
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-change-me')
+DEBUG = os.getenv('DJANGO_DEBUG', 'True') == 'True'
+ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', '*').split(',')
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -19,11 +14,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'treebeard',
     'core',
-    'services',
-    'crm',
-    'blog',
 ]
 
 MIDDLEWARE = [
@@ -58,27 +49,20 @@ WSGI_APPLICATION = 'company_site.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': env('POSTGRES_DB', default='company'),
-        'USER': env('POSTGRES_USER', default='pguser'),
-        'PASSWORD': env('POSTGRES_PASSWORD', default='pgpass'),
-        'HOST': env('POSTGRES_HOST', default='localhost'),
-        'PORT': env('POSTGRES_PORT', default='5432'),
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
-AUTH_PASSWORD_VALIDATORS = [
-    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
-]
+AUTH_PASSWORD_VALIDATORS = []
 
 LANGUAGE_CODE = 'uk-ua'
 TIME_ZONE = 'Europe/Kyiv'
 USE_I18N = True
 USE_TZ = True
 
-STATIC_URL = '/static/'
+STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_DIRS = [BASE_DIR / 'static']
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

@@ -1,0 +1,7 @@
+Django==5.0.4
+psycopg[binary]==3.2.9
+django-environ
+pytest
+pytest-django
+model-bakery
+gunicorn

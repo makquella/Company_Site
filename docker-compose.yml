@@ -6,7 +6,9 @@ services:
     ports:
       - "8080:8000"
     env_file: .env
-    command: gunicorn company_site.wsgi:application -b 0.0.0.0:8000
+    command: >
+      sh -c "python manage.py migrate &&
+             gunicorn company_site.wsgi:application --bind 0.0.0.0:8000"
 
   db:
     image: postgres:15
@@ -17,7 +19,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
-      - "5432:5432"
+      - "5433:5432"
 
 volumes:
   postgres_data:

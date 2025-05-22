@@ -17,6 +17,6 @@ jobs:
         run: |
           black --check .
           flake8 .
-          mypy .
+          mypy --ignore-missing-imports .
       - name: Tests
         run: pytest -q

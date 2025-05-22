@@ -1,10 +1,11 @@
 ﻿import pytest
-from django.urls import reverse
+from html import unescape
 
 
 @pytest.mark.django_db
 def test_homepage(client):
-    url = reverse("home")  # у skeletonʼі це path('', home, name='home')
-    response = client.get(url)
+    response = client.get("/")  # або reverse("home") у другому файлі
     assert response.status_code == 200
-    assert b"It works!" in response.content
+
+    html = unescape(response.content.decode()).replace("\u00A0", " ")
+    assert "Better Solutions For Your Business" in html

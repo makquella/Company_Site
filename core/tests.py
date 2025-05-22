@@ -1,8 +1,11 @@
-import pytest
+﻿import pytest
+from html import unescape
 
 
 @pytest.mark.django_db
 def test_homepage(client):
-    response = client.get("/")
+    response = client.get("/")  # або reverse("home") у другому файлі
     assert response.status_code == 200
-    assert b"It works!" in response.content
+
+    html = unescape(response.content.decode()).replace("\u00A0", " ")
+    assert "Better Solutions For Your Business" in html

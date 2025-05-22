@@ -59,9 +59,18 @@
   {# ---------- /Header ---------- #}
 
   <main class="main">
-    {% block content %}{% endblock %}
-  </main>
 
+  {# ——— Flash-сообщения Django ——— #}
+  {% if messages %}
+    <div class="container mt-4">
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  {% block content %}{% endblock %}
+</main>
   {# ---------- Footer ---------- #}
   <footer id="footer" class="footer">
     <div class="container footer-top">

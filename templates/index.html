@@ -33,8 +33,6 @@
 <section id="clients" class="clients section light-background">
   <div class="container" data-aos="zoom-in">
     <div class="swiper init-swiper">
-
-      {#  конфіг Swiper  #}
       <script type="application/json" class="swiper-config">
         {
           "loop": true,
@@ -53,7 +51,6 @@
       </script>
 
       <div class="swiper-wrapper align-items-center">
-        {# простий цикл «1 … 8» через make_list #}
         {% for n in "12345678"|make_list %}
           <div class="swiper-slide">
             <img src="{% static 'assets/img/clients/clients-' %}{{ n }}.webp"
@@ -67,5 +64,47 @@
 </section>
 {# ============ /CLIENTS ============== #}
 
-{# ----- решта секцій (About, Services, Portfolio, …) ----- #}
+{# === Contact Section === #}
+<section id="contact" class="contact section">
+  <div class="container section-title" data-aos="fade-up">
+    <h2>Contact</h2>
+    <p>Send us a message</p>
+  </div>
+
+  <div class="container" data-aos="fade-up" data-aos-delay="100">
+    <div class="row gy-4">
+      <div class="col-lg-7 mx-auto">
+        <form action="{% url 'contact' %}" method="post">
+          {% csrf_token %}
+          {{ form.non_field_errors }}
+
+          <div class="row gy-4">
+            <div class="col-md-6">
+              {{ form.name.errors }} {{ form.name }}
+            </div>
+
+            <div class="col-md-6">
+              {{ form.email.errors }} {{ form.email }}
+            </div>
+
+            <div class="col-md-12">
+              {{ form.subject.errors }} {{ form.subject }}
+            </div>
+
+            <div class="col-md-12">
+              {{ form.message.errors }} {{ form.message }}
+            </div>
+
+            <div class="col-md-12 text-center">
+              <button type="submit" class="btn btn-primary">Send Message</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+{# === /Contact Section === #}
+
+{# --- Other sections (About, Services, Portfolio, Team, etc.) can be included below --- #}
 {% endblock %}

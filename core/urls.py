@@ -1,7 +1,8 @@
 ﻿from django.urls import path
-from .views import home, ServiceList  # додайте імпорт
+from .views import ServiceList, home, ContactView
 
 urlpatterns = [
     path("", home, name="home"),
-    path("services/", ServiceList.as_view(), name="services"),  # новий маршрут
+    path("services/", ServiceList.as_view(), name="services"),
+    path("contact/", ContactView.as_view(), name="contact"),
 ]

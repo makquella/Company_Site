@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Services · Arsha{% endblock %}
+{% block body_class %}services-page{% endblock %}
+
+{% block content %}
+<section class="section">
+  <div class="container">
+    <div class="section-title" data-aos="fade-up">
+      <h2>Our Services</h2>
+      <p>What we can do for your business</p>
+    </div>
+
+    <div class="row gy-4">
+      {% for s in services %}
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1 }}00">
+          <div class="service-item position-relative h-100">
+            <div class="icon"><i class="bi bi-briefcase"></i></div>
+            <h4>{{ s.title }}</h4>
+            {% if s.price %}<p class="text-primary fw-bold">${{ s.price }}</p>{% endif %}
+            <p>{{ s.description|truncatechars:120 }}</p>
+          </div>
+        </div>
+      {% empty %}
+        <p class="text-center">No services yet — stay tuned!</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,4 +1,4 @@
-﻿name: CI/CD
+name: CI/CD
 
 on:
   push:
@@ -16,7 +16,7 @@ jobs:
       # 2) Встановлюємо Python
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.13"
+          python-version: "3.11"
 
       # 3) Інсталяція залежностей
       - name: Install dependencies

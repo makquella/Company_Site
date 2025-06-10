@@ -6,7 +6,7 @@ This repository contains a minimal Django project prepared for the **“standard
 
 ```bash
 git clone <your_repo_url>
-cd company_site_skeleton
+cd Company_Site
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
